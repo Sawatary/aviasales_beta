@@ -1,26 +1,11 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
 import styles from "./Filter.module.scss";
-
-type FilterOption = {
-  label: string;
-  checked: boolean;
-};
+import { toggleFilter } from "./filterSlice";
 
 const Filter = () => {
-  const [filters, setFilters] = useState<FilterOption[]>([
-    { label: "Все", checked: false },
-    { label: "Без пересадок", checked: false },
-    { label: "1 пересадка", checked: false },
-    { label: "2 пересадки", checked: false },
-    { label: "3 пересадки", checked: false },
-  ]);
-
-  const handleFilterChange = (index: number) => {
-    const updatedFilters = filters.map((filter, i) =>
-      i === index ? { ...filter, checked: !filter.checked } : filter
-    );
-    setFilters(updatedFilters);
-  };
+  const filters = useSelector((state: RootState) => state.filters.filters);
+  const dispatch = useDispatch();
 
   return (
     <div className={styles.filter}>
@@ -30,7 +15,9 @@ const Filter = () => {
           <input
             type="checkbox"
             checked={filter.checked}
-            onClick={() => handleFilterChange(index)}
+            onChange={() =>
+              dispatch(toggleFilter({ transferType: filter.transferType }))
+            }
           />
           <span className={styles.customCheckbox}></span>
           {filter.label}
