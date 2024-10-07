@@ -7,7 +7,6 @@ const store = configureStore({
     filters: filtersReducer,
     tickets: ticketsReducer,
   },
-  devTools: process.env.NODE_ENV !== "production",
 });
 
 export type AppDispatch = typeof store.dispatch;

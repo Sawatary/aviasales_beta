@@ -69,15 +69,15 @@ const Tickets = () => {
 
   if (loading) return <div>Загрузка...</div>;
   if (error) return <div>Ошибка: {error}</div>;
-
+  
   return (
     <>
       <div className={styles.ticketsContainer}>
         {filteredTicketsByStops.length === 0 ? (
           <div>Рейсов, подходящих под заданные фильтры, не найдено</div>
         ) : (
-          filteredTicketsByStops.slice(0, visibleCount).map((ticket) => (
-            <div key={ticket.id} className={styles.ticketCard}>
+          filteredTicketsByStops.slice(0, visibleCount).map((ticket, id) => (
+            <div key={id} className={styles.ticketCard}>
               <HeaderTickets price={ticket.price} carrier={ticket.carrier} />
               <Description segments={ticket.segments} />
             </div>
