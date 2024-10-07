@@ -1,26 +1,17 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 // Интерфейсы для билетов и данных
 export interface Segment {
-  // Код города (iata)
-  origin: string;
-  // Код города (iata)
-  destination: string;
-  // Дата и время вылета обратно
-  date: string;
-  // Массив кодов (iata) городов с пересадками
-  stops: string[];
-  // Общее время перелёта в минутах
-  duration: number;
+  origin: string; // Код города (iata)
+  destination: string; // Код города (iata)
+  date: string; // Дата и время вылета обратно
+  stops: string[]; // Массив кодов (iata) городов с пересадками
+  duration: number; // Общее время перелёта в минутах
 }
 
 export interface Ticket {
-  // Цена в рублях
-  price: number;
-  // Код авиакомпании (iata)
-  carrier: string;
-  // Массив перелётов.
-  // В тестовом задании это всегда поиск "туда-обратно" значит состоит из двух элементов
-  segments: Segment[];
+  price: number; // Цена в рублях
+  carrier: string; // Код авиакомпании (iata)
+  segments: Segment[]; // Массив перелётов
 }
 
 export interface TicketsState {
@@ -101,9 +92,9 @@ const ticketsSlice = createSlice({
         fetchTickets.fulfilled,
         (state, action: PayloadAction<TicketsResponse>) => {
           state.tickets = state.tickets.concat(action.payload.tickets);
-          state.filteredTickets = state.tickets;
           state.loading = false;
           state.stop = action.payload.stop;
+          state.filteredTickets = sortTickets(state.tickets, "cheapest");
         }
       )
       .addCase(fetchTickets.rejected, (state, action) => {
