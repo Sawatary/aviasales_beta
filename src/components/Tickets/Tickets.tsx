@@ -6,6 +6,7 @@ import Description from "../../features/DescriptionTickets/Description";
 import HeaderTickets from "../../features/HeaderTickets/HeaderTickets";
 import styles from "./Tickets.module.scss";
 import { fetchSearchId, fetchTickets } from "../store/ticketsApi";
+import Loading from "../Loading/Loading";
 
 const Tickets = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -34,10 +35,8 @@ const Tickets = () => {
     return tickets.filter((ticket) => {
       // Проверяем, выбраны ли фильтры
       const activeFilters = filters.filter((filter) => filter.checked);
-
       // Если фильтры не выбраны, возвращаем все билеты
       if (activeFilters.length === 0) return true;
-
       return activeFilters.some((filter) => {
         // Проверяем количество пересадок
         const stopsCount = ticket.segments.reduce(
@@ -67,14 +66,26 @@ const Tickets = () => {
 
   const showMoreTickets = () => setVisibleCount((prevCount) => prevCount + 5);
 
-  if (loading) return <div>Загрузка...</div>;
-  if (error) return <div>Ошибка: {error}</div>;
-  
+  if (loading)
+    return (
+      <div className={styles.infoError}>
+        <Loading />
+      </div>
+    );
+  if (error)
+    return (
+      <div className={styles.infoError}>
+        Ошибка при получении данных: {error}
+      </div>
+    );
+
   return (
     <>
       <div className={styles.ticketsContainer}>
         {filteredTicketsByStops.length === 0 ? (
-          <div>Рейсов, подходящих под заданные фильтры, не найдено</div>
+          <div className={styles.infoError}>
+            Рейсов, подходящих под заданные фильтры, не найдено
+          </div>
         ) : (
           filteredTicketsByStops.slice(0, visibleCount).map((ticket, id) => (
             <div key={id} className={styles.ticketCard}>

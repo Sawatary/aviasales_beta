@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 import Logo from "../public/logo.svg";
-import styles from "./App.module.scss";
+import styles from "./styles/App.module.scss";
 import Filter from "./components/Filter/Filter";
 import store from "./components/store/store";
 import Tabs from "./components/Tabs/Tabs";
