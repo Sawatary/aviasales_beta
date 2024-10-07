@@ -1,10 +1,14 @@
 .headerTic {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 
   .price {
     margin-top: 10px;
+  }
+  .image {
+    width: 100px;
+    object-fit: cover;
   }
 }
 

@@ -7,12 +7,15 @@ type TransferType =
   | "twoTransfers"
   | "threeTransfers";
 
+type SortType = "price" | "duration";
+
 type FilterState = {
   filters: {
     label: string;
     transferType: TransferType;
     checked: boolean;
   }[];
+  sort: SortType; // Добавляем состояние для сортировки
 };
 
 const initialState: FilterState = {
@@ -23,6 +26,7 @@ const initialState: FilterState = {
     { label: "2 пересадки", transferType: "twoTransfers", checked: false },
     { label: "3 пересадки", transferType: "threeTransfers", checked: false },
   ],
+  sort: "price", // Изначальная сортировка по цене
 };
 
 const filtersSlice = createSlice({
@@ -49,8 +53,11 @@ const filtersSlice = createSlice({
         }
       }
     },
+    setSortOrder: (state, action: PayloadAction<SortType>) => {
+      state.sort = action.payload; // Установка порядка сортировки
+    },
   },
 });
 
-export const { toggleFilter } = filtersSlice.actions;
+export const { toggleFilter, setSortOrder } = filtersSlice.actions;
 export default filtersSlice.reducer;

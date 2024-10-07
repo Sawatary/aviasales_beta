@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import filtersReducer from "../Filter/filterSlice";
-import ticketsReducer from "../Tickets/ticketsSlice";
+import filtersReducer from "./filterSlice";
+import ticketsReducer from "./ticketsApi";
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     filters: filtersReducer,
     tickets: ticketsReducer,
@@ -10,5 +10,6 @@ export const store = configureStore({
   devTools: process.env.NODE_ENV !== "production",
 });
 
-export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export default store;

@@ -2,7 +2,7 @@ import { Provider } from "react-redux";
 import Logo from "../public/logo.svg";
 import styles from "./App.module.scss";
 import Filter from "./components/Filter/Filter";
-import { store } from "./components/store/store";
+import store from "./components/store/store";
 import Tabs from "./components/Tabs/Tabs";
 import Tickets from "./components/Tickets/Tickets";
 
@@ -17,7 +17,6 @@ const App = () => {
         <div className={styles.section}>
           <Tabs />
           <Tickets />
-          <button className={styles.buttonMore}>Показать еще 5 билетов!</button>
         </div>
       </div>
     </Provider>

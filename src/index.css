@@ -25,9 +25,3 @@ body {
   justify-content: center;
   min-height: 100vh;
 }
-
-@media (max-width: 768px) {
-  body > div {
-    flex: 1;
-  }
-}
