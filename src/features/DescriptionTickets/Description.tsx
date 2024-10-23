@@ -45,14 +45,12 @@ const Description = ({ segments }: { segments: Segment[] }) => {
                   hour12: false,
                 }
               )}`}</span>{" "}
-              {/* Время вылета и прибытия */}
             </div>
             <div className={styles.description_tab}>
               <span className={styles.descriptionTitle}>В пути</span>
               <span className={styles.descriptionInfo}>
                 {formattedDuration}
               </span>{" "}
-              {/* Время в пути */}
             </div>
             <div className={styles.description_tab}>
               <span className={styles.descriptionTitle}>

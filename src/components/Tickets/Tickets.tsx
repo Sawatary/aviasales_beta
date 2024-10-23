@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSearchId, fetchTickets } from "../store/ticketsApi";
 import Description from "../../features/DescriptionTickets/Description";
 import HeaderTickets from "../../features/HeaderTickets/HeaderTickets";
 import styles from "./Tickets.module.scss";
-import { fetchSearchId, fetchTickets } from "../store/ticketsApi";
 import Loading from "../Loading/Loading";
 
 const Tickets = () => {
@@ -81,20 +81,18 @@ const Tickets = () => {
 
   return (
     <>
-      <div className={styles.ticketsContainer}>
-        {filteredTicketsByStops.length === 0 ? (
-          <div className={styles.infoError}>
-            Рейсов, подходящих под заданные фильтры, не найдено
+      {filteredTicketsByStops.length === 0 ? (
+        <div className={styles.infoError}>
+          Рейсов, подходящих под заданные фильтры, не найдено
+        </div>
+      ) : (
+        filteredTicketsByStops.slice(0, visibleCount).map((ticket, index) => (
+          <div key={`${ticket.carrier}-${index}`} className={styles.ticketCard}>
+            <HeaderTickets price={ticket.price} carrier={ticket.carrier} />
+            <Description segments={ticket.segments} />
           </div>
-        ) : (
-          filteredTicketsByStops.slice(0, visibleCount).map((ticket, id) => (
-            <div key={id} className={styles.ticketCard}>
-              <HeaderTickets price={ticket.price} carrier={ticket.carrier} />
-              <Description segments={ticket.segments} />
-            </div>
-          ))
-        )}
-      </div>
+        ))
+      )}
 
       {visibleCount < filteredTicketsByStops.length && (
         <button className={styles.buttonMore} onClick={showMoreTickets}>

@@ -25,7 +25,6 @@ const HeaderTickets = ({ price, carrier }: TypeExport) => {
       </div>
       <div className={styles.posterImg}>
         <img className={styles.image} src={logoUrl} alt="companyLogo" />{" "}
-        {/* Используем URL логотипа */}
       </div>
     </div>
   );
